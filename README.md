@@ -1,76 +1,54 @@
 # Muti-AgentClaw
-  - a clear leader-and-coworker architecture explanation
-  - masked openclaw.json examples and workspace prompt samples
-  - Mermaid architecture and runtime flow diagrams
-  - sanitized real outputs from the live setup
-  - delegation methodology, validation steps, security guidance, and common mistakes
-  - explicit coverage of the OpenClaw distinction between configured agents and runtime sub-agent sessions
 
-  All tokens, IDs, and machine-specific secrets are masked with placeholders such as <STATE_DIR>, <MODEL_API_KEY>, and <DISCORD_BOT_TOKEN_FINS>.
+Practical documentation for building a leader-and-coworker multi-agent system on OpenClaw.
 
+This repo exists because end-to-end, fully workable OpenClaw multi-agent examples are still hard to find in public. The material here documents a reproducible pattern with clear leadership, isolated specialist agents, masked configuration, and production-shaped examples.
 
-› base on the article, generate a post sample which use in linkedin, short and informative
+## What This Covers
 
+- one leader agent: `main`
+- specialist coworker agents: `coder` and `fins`
+- isolated workspaces, identities, and session stores
+- explicit delegation boundaries
+- optional direct channel routing
+- sanitized architecture diagrams and real-shaped outputs
 
-• I’ve just documented a practical pattern for building a **leader-and-coworker multi-agent system on OpenClaw**.
-  - one **leader agent** owns strategy, orchestration, and final judgment
-  - multiple **coworker agents** handle specialist execution such as coding or finance analysis
-  - each agent has its own **workspace, identity, session store, and channel routing**
-  - delegation is controlled explicitly through **config + prompt architecture**, not prompt wording alone
+## Versioned Documents
 
-  In the write-up, I included:
-  - a real multi-agent topology based on `main`, `coder`, and `fins`
-  - masked but production-shaped `openclaw.json` examples
-  - runtime delegation flow diagrams
-  - sanitized command outputs from a live system
-  - implementation methodology, validation steps, and common design mistakes
+- [`OpenClaw_Multi_Agent_Leader_Coworker_Guide_v1.0.md`](./OpenClaw_Multi_Agent_Leader_Coworker_Guide_v1.0.md): original guide
+- [`OpenClaw_Multi_Agent_Leader_Coworker_Guide_v1.1.md`](./OpenClaw_Multi_Agent_Leader_Coworker_Guide_v1.1.md): updated guide with shared-ideas workflow
 
-  The main takeaway: **multi-agent reliability comes from clear authority boundaries and routing semantics, not from adding more agents.**
+## Short Changelog
 
-  If you’re designing serious AI workflows on OpenClaw, this pattern is a strong starting point for building systems that are easier to scale, debug, and reuse.
+### v1.1
 
-  #OpenClaw #MultiAgentSystems #AIAgents #AgentArchitecture #AIEngineering #SystemDesign
-› shorten it and mention that because of the limited disclosure of openclaw supportings, I never find a completely workable multi agent article so far, so I do it
+- adds a shared ideas layer for coworker-to-coworker awareness without changing authority
+- clarifies that `main` remains the only delegator and task assigner
+- separates information sharing from delegation as an explicit architecture rule
+- introduces a privacy boundary: shared knowledge must not reuse `MEMORY.md`
+- adds `shared/ideas.jsonl` to the filesystem model and shared-ideas terminology to the guide
+- expands prompt examples with shared knowledge curation for `main` and shared idea protocols for `coder` and `fins`
+- adds a runtime sequence diagram for coworker idea publication
+- extends validation tests and common-mistake guidance for misuse of the shared layer
 
+### v1.0
 
-• I just published a short practical guide for building a **leader-and-coworker multi-agent system on OpenClaw**.
+- establishes the base leader-and-coworker pattern on OpenClaw
+- defines the `main`, `coder`, and `fins` role split
+- documents isolated workspaces, agent directories, routing, and delegation boundaries
 
-  Because OpenClaw’s multi-agent capabilities are still not widely disclosed or clearly documented end to end, I had not found a **fully workable article** on this topic so far. So
-  I wrote one myself.
+## Core Principle
 
-  The guide covers:
-  - one leader agent plus specialist coworker agents
-  - isolated workspaces, identities, and session stores
-  - explicit delegation and routing design
-  - masked config examples, flow diagrams, and sanitized real outputs
+Shared knowledge is not shared authority.
 
-  The goal was simple: make OpenClaw multi-agent architecture easier to understand, reproduce, and extend.
+The intended model is:
 
-  #OpenClaw #MultiAgentSystems #AIAgents #AIEngineering #SystemDesign
+- `main` owns strategy, judgment, and task assignment
+- coworkers execute narrow specialist work
+- coworkers may publish reusable observations
+- coworkers do not delegate sideways
 
+## Notes
 
-› write a README.md, output on shell not store file
-
-
-• # OpenClaw Multi-Agent System: Leader + Coworkers
-
-  A practical OpenClaw multi-agent pattern built around one **leader agent** and multiple **specialist coworker agents**.
-
-  This design is intended for builders who want a system that is:
-
-  - easy to understand
-  - easy to extend
-  - operationally clear
-  - realistic to run in production-like environments
-
-  ## Why This Exists
-
-  OpenClaw supports multi-agent routing and runtime sub-agent execution, but end-to-end examples of a **fully workable leader-and-coworker architecture** are still limited.
-
-  This project documents a working pattern where:
-
-  - `main` acts as the **leader**
-  - `coder` acts as the **technical coworker**
-  - `fins` acts as the **finance coworker**
-
-  The goal is not just "multiple agents", but a system with explicit hierarchy, isolated workspaces, and predictable delegation behavior.
+- Tokens, IDs, and machine-specific values are masked with placeholders such as `<STATE_DIR>`, `<MODEL_API_KEY>`, and `<DISCORD_BOT_TOKEN_FINS>`.
+- The OpenClaw version context used in the guides is `2026.3.8`.
